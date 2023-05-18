@@ -29,12 +29,13 @@ jobs:
           push: true
           tags: dmw910124/darrynwillis.com:latest
 
-      - name: SSH into EC2 instance
+      - name: SSH into AWS EC2 instance
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.AWS_USERNAME }}
           password: ${{ secrets.AWS_PASSWORD }}
+          port: ${{ secrets.PORT }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             docker pull dmw910124/darrynwillis.com:latest
