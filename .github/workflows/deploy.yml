@@ -30,15 +30,10 @@ jobs:
           tags: dmw910124/darrynwillis.com:latest
 
       - name: SSH into AWS EC2 instance
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.HOSTNAME }}
-          username: ${{ secrets.AWS_USERNAME }}
-          password: ${{ secrets.AWS_PASSWORD }}
-          key: ${{ secrets.AWS_PRIVATE_KEY }}
-          port: ${{ secrets.PORT }}
-          script: |
-            docker pull dmw910124/darrynwillis.com:latest
-            docker stop darrynwillis.com || true
-            docker rm darrynwillis.com || true
-            docker run -d --name darrynwillis.com -p 80:80 dmw910124/darrynwillis.com:latest
+        run: |
+          echo "${{ secrets.AWS_PRIVATE_KEY }}" > private_key && chmod 600 private_key
+          ssh -o StrictHostKeyChecking=no -i private_key ${{ secrets.AWS_USERNAME }}@${{ secrets.HOSTNAME }}
+          docker pull dmw910124/darrynwillis.com:latest
+          docker stop darrynwillis.com || true
+          docker rm darrynwillis.com || true
+          docker run -d --name darrynwillis.com -p 80:80 dmw910124/darrynwillis.com:latest
