@@ -32,8 +32,9 @@ jobs:
       - name: SSH into EC2 instance
         uses: appleboy/ssh-action@master
         with:
-          host: https://ec2-3-94-101-222.compute-1.amazonaws.com/
-          username: darrynwillis.com
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.AWS_USERNAME }}
+          password: ${{ secrets.AWS_PASSWORD }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             docker pull dmw910124/darrynwillis.com:latest
