@@ -30,7 +30,7 @@ jobs:
           tags: dmw910124/darrynwillis.com:latest
 
       - name: SSH into AWS EC2 instance and 
-        uses: appleboy/ssh-action@latest
+        uses: appleboy/ssh-action@v0.1.10
         with:
           host: ${{ secrets.HOSTNAME }}
           username: ${{ secrets.AWS_USERNAME }}
