@@ -29,10 +29,14 @@ jobs:
           push: true
           tags: dmw910124/darrynwillis.com:latest
 
-      - name: SSH into AWS EC2 instance
-        run: 
-          ssh -i ${{ secrets.AWS_PRIVATE_KEY }} ubuntu@${{ secrets.HOSTNAME }}
-          docker pull dmw910124/darrynwillis.com:latest
-          docker stop darrynwillis.com || true
-          docker rm darrynwillis.com || true
-          docker run -d --name darrynwillis.com -p 80:80 dmw910124/darrynwillis.com:latest
+      - name: SSH into AWS EC2 instance and 
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOSTNAME }}
+          username: ${{ secrets.AWS_USERNAME }}
+          key: ${{ secrets.AWS_PRIVATE_KEY }}
+          script: |
+            docker pull dmw910124/darrynwillis.com:latest
+            docker stop darrynwillis.com || true
+            docker rm darrynwillis.com || true
+            docker run -d --name darrynwillis.com -p 80:80 dmw910124/darrynwillis.com:latest
