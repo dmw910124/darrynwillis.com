@@ -36,8 +36,8 @@ jobs:
           username: ${{ secrets.AWS_USERNAME }}
           key: ${{ secrets.AWS_PRIVATE_KEY }}
           script: |
-            sudo docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin ${{ secrets.DOCKER_PASSWORD }}
-            docker pull dmw910124/darrynwillis.com:latest
-            docker stop darrynwillis.com || true
-            docker rm darrynwillis.com || true
-            docker run -d --name darrynwillis.com -p 80:80 dmw910124/darrynwillis.com:latest
+            sudo docker login -username ${{ secrets.DOCKER_USERNAME }} -password ${{ secrets.DOCKER_PASSWORD }}
+            sudo docker pull dmw910124/darrynwillis.com:latest
+            sudo docker stop darrynwillis.com || true
+            sudo docker rm darrynwillis.com || true
+            sudo docker run -d --name darrynwillis.com -p 80:80 dmw910124/darrynwillis.com:latest
