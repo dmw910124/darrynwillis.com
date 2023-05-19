@@ -36,6 +36,7 @@ jobs:
           username: ${{ secrets.AWS_USERNAME }}
           key: ${{ secrets.AWS_PRIVATE_KEY }}
           script: |
+            docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
             docker pull dmw910124/darrynwillis.com:latest
             docker stop darrynwillis.com || true
             docker rm darrynwillis.com || true
