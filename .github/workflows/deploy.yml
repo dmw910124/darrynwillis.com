@@ -33,9 +33,7 @@ jobs:
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.HOSTNAME }}
-          port: ${{ secrets.PORT }}
           username: ${{ secrets.AWS_USERNAME }}
-          password: ${{ secrets.AWS_PASSWORD }}
           key: ${{ secrets.AWS_PRIVATE_KEY }}
           script: |
             docker pull dmw910124/darrynwillis.com:latest
