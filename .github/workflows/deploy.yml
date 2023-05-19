@@ -29,16 +29,16 @@ jobs:
           push: true
           tags: dmw910124/darrynwillis.com:latest
 
-      - name: Deploy to AWS EC2 instance using Dicjer
-        env:
-          PRIVATE_KEY: ${{ secrets.AWS_PRIVATE_KEY }}
-          HOSTNAME : ${{ secrets.HOSTNAME }}
-          USER_NAME : ${{ secrets.AWS_USERNAME }}
-        run: |
-          echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
-          ssh -o StrictHostKeyChecking=no -i private_key ${USER_NAME}@${HOSTNAME} '
+      - name: Deploy to AWS EC2 instance using Docker
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOSTNAME }}
+          port: ${{ secrets.PORT }}
+          username: ${{ secrets.AWS_USERNAME }}
+          password: ${{ secrets.AWS_PASSWORD }}
+          key: ${{ secrets.AWS_PRIVATE_KEY }}
+          script: |
             docker pull dmw910124/darrynwillis.com:latest
             docker stop darrynwillis.com || true
             docker rm darrynwillis.com || true
             docker run -d --name darrynwillis.com -p 80:80 dmw910124/darrynwillis.com:latest
-          '
