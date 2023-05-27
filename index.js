@@ -1,9 +1,10 @@
 const express = require('express')
 const app = express()
+const path = require('path')
 const port = 80
 
 app.get('/', (request, response) => {
-  response.sendFile("index.html", {
+  response.sendFile(path.resolve("index.html"), {
     "Content-Type": "text/html",
   })
 })
