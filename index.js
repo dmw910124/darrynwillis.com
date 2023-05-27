@@ -3,7 +3,9 @@ const app = express()
 const port = 80
 
 app.get('/', (request, response) => {
-  response.sendFile('index.html')
+  response.sendFile("index.html", {
+    "Content-Type": "text/html",
+  })
 })
 
 app.listen(port, () => {
