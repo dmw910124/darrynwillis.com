@@ -15,8 +15,6 @@ COPY . .
 
 WORKDIR /app/backend
 
-RUN npm install -g yarn
-
 RUN npm install
 
 RUN yarn build
