@@ -4,7 +4,7 @@ const path = require('path')
 const port = 80
 
 app.get('/', (request, response) => {
-  response.sendFile(path.resolve("index.html"), {
+  response.sendFile(path.resolve("./frontend/src/index.html"), {
     "Content-Type": "text/html",
   })
 })
