@@ -13,6 +13,12 @@ RUN npm install
 # Copy the rest of the app's source code to the container
 COPY . .
 
+WORKDIR /backend
+
+RUN npm install
+
+WORKDIR /
+
 # Expose the port
 EXPOSE 80
 
