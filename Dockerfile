@@ -15,9 +15,13 @@ COPY . .
 
 WORKDIR /app/backend
 
+RUN npm install -g yarn
+
 RUN npm install
 
-WORKDIR /
+RUN yarn build
+
+WORKDIR /app
 
 # Expose the port
 EXPOSE 80
