@@ -13,7 +13,7 @@ RUN npm install
 # Copy the rest of the app's source code to the container
 COPY . .
 
-WORKDIR /backend
+WORKDIR /app/backend
 
 RUN npm install
 
