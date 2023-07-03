@@ -5,21 +5,13 @@ FROM node:18-alpine
 WORKDIR /app
 
 # Copy package.json and package-lock.json to the container
-COPY package*.json ./
+COPY package.json yarn.lock ./
 
 # Install app dependencies
-RUN npm install
+RUN yarn install
 
 # Copy the rest of the app's source code to the container
 COPY . .
-
-WORKDIR /app/backend
-
-RUN npm install
-
-RUN yarn build
-
-WORKDIR /app
 
 # Expose the port
 EXPOSE 80
