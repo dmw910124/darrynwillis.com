@@ -4,17 +4,14 @@ FROM node:18-alpine
 # Set the working directory in the container
 WORKDIR /app
 
-# Change directory to frontend
-RUN cd frontend
-
 # Copy package.json and yarn.lock to the container
-COPY package.json yarn.lock ./
+COPY ./frontend/package.json ./frontend/yarn.lock ./
 
 # Install app dependencies
 RUN yarn install
 
 # Copy the rest of the app's source code to the container
-COPY . .
+COPY ./frontend .
 
 # Build the Nuxt.js app
 RUN yarn build
