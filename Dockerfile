@@ -17,7 +17,7 @@ COPY ./frontend .
 RUN yarn build
 
 # Expose the port
-EXPOSE 80
+EXPOSE 443
 
 # Set the command to start the Nuxt.js app
 CMD ["yarn", "start"]
