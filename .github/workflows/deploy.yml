@@ -40,4 +40,4 @@ jobs:
             sudo docker pull dmw910124/darrynwillis.com:latest
             sudo docker stop darrynwillis.com || true
             sudo docker rm darrynwillis.com || true
-            sudo docker run -d --name darrynwillis.com -p 443:443 dmw910124/darrynwillis.com:latest
+            sudo docker run -d --name darrynwillis.com -p 3000:3000 dmw910124/darrynwillis.com:latest
