@@ -13,8 +13,11 @@ RUN yarn install
 # Copy the rest of the app's source code to the container
 COPY ./frontend .
 
+# Build the Nuxt.js app
+RUN yarn build
+
 # Expose the port
 EXPOSE 3000
 
 # Set the command to start the Nuxt.js app
-RUN yarn run build && yarn run start
+CMD ["yarn", "start"]
