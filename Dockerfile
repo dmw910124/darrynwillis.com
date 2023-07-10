@@ -17,4 +17,4 @@ COPY ./frontend .
 EXPOSE 3000
 
 # Set the command to start the Nuxt.js app
-CMD ["yarn", "run", "build"] && ["yarn", "run", "start"]
+RUN yarn run build && yarn run start
