@@ -2,19 +2,19 @@
 FROM node:18-alpine
 
 # Set the working directory in the container
-WORKDIR /app
+WORKDIR /frontend
 
-# Copy package.json and package-lock.json to the container
-COPY package.json yarn.lock ./
+# Copy package.json and yarn.lock to the container
+COPY ./frontend/package.json ./frontend/yarn.lock ./
 
 # Install app dependencies
 RUN yarn install
 
 # Copy the rest of the app's source code to the container
-COPY . .
+COPY ./frontend .
 
 # Expose the port
-EXPOSE 80
+EXPOSE 3000
 
-# Set the command to start the Node.js app
-CMD ["node", "index.js"]
+# Set the command to start the Nuxt.js app
+CMD ["yarn", "run", "build"] && ["yarn", "run", "start"]
