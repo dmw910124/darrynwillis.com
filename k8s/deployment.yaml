@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: darrynwillis-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: darrynwillis
+  template:
+    metadata:
+      labels:
+        app: darrynwillis
+    spec:
+      containers:
+        - name: darrynwillis
+          imagePullPolicy: IfNotPresent
+          image: dmw910124/darrynwillis.com:latest
+          resources:
+            limits:
+              memory: "256Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 80
