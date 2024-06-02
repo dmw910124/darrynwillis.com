@@ -1,4 +1,4 @@
-name: Deploy to EC2
+name: Deploy to WSL
 
 on:
   push:
@@ -11,13 +11,13 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Docker
-        uses: docker/setup-buildx-action@v2
+        uses: docker/setup-buildx-action@v3
 
-      - name: Log in to Docker registry
-        uses: docker/login-action@v2
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
@@ -30,11 +30,12 @@ jobs:
           tags: dmw910124/darrynwillis.com:latest
 
       - name: Deploy to AWS EC2 instance using Docker
-        uses: appleboy/ssh-action@master
+        uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.HOSTNAME }}
-          username: ${{ secrets.AWS_USERNAME }}
+          username: ${{ secrets.SERVER_USERNAME }}
           key: ${{ secrets.AWS_PRIVATE_KEY }}
+          # port: ${{ secrets.PORT }}
           script: |
             sudo apt install docker.io || true
             sudo docker login --username ${{ secrets.DOCKER_USERNAME }} --password ${{ secrets.DOCKER_PASSWORD }}
