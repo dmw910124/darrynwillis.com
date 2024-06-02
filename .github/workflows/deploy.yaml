@@ -1,4 +1,4 @@
-name: Deploy to WSL
+name: Deploy to Server
 
 on:
   push:
@@ -29,17 +29,12 @@ jobs:
           push: true
           tags: dmw910124/darrynwillis.com:latest
 
-      - name: Deploy to AWS EC2 instance using Docker
+      - name: Deploy using SSH
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.HOSTNAME }}
           username: ${{ secrets.SERVER_USERNAME }}
-          key: ${{ secrets.AWS_PRIVATE_KEY }}
-          # port: ${{ secrets.PORT }}
+          key: ${{ secrets.PRIVATE_KEY }}
+          port: ${{ secrets.PORT }}
           script: |
-            sudo apt install docker.io || true
-            sudo docker login --username ${{ secrets.DOCKER_USERNAME }} --password ${{ secrets.DOCKER_PASSWORD }}
-            sudo docker pull dmw910124/darrynwillis.com:latest
-            sudo docker stop darrynwillis.com || true
-            sudo docker rm darrynwillis.com || true
-            sudo docker run -d --name darrynwillis.com -p 80:80 dmw910124/darrynwillis.com:latest
+            kubectl apply -f deployment.yaml -f service.yaml

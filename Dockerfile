@@ -1,5 +1,5 @@
 # Use an official Node.js runtime as the base image
-FROM node:18-alpine
+FROM lts-alpine
 
 # Set the working directory in the container
 WORKDIR /app
@@ -14,7 +14,7 @@ RUN yarn install
 COPY . .
 
 # Expose the port
-EXPOSE 80
+EXPOSE 3000
 
 # Set the command to start the Express app
 CMD ["node", "app.js"]
