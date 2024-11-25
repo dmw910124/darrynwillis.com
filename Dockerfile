@@ -1,20 +1,17 @@
-# Use an official Node.js runtime as the base image
-FROM node:lts-bookworm-slim
+FROM node:23-alpine
 
-# Set the working directory in the container
 WORKDIR /app
 
-# Copy package.json to the container
-COPY package.json yarn.lock ./
+COPY package.json .
 
-# Install app dependencies
-RUN yarn install
+RUN npm install
 
-# Copy the rest of the app's source code to the container
+RUN npm i -g serve
+
 COPY . .
 
-# Expose the port
+RUN npm run build
+
 EXPOSE 3000
 
-# Set the command to start the Express app
-CMD ["node", "app.js"]
+CMD [ "serve", "-s", "dist" ]
